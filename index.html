@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trivia API</title>
-</head>
-<body>
-    
+  </head>
+  <body>
+    <form id="form">
+      <h2>Configurar trivia</h2>
 
+      <!-- Numero de preguntas -->
+      <label for="trivia_amount">Numero de Preguntas:</label>
+      <input type="number" id="trivia_amount" min="1" max="50" value="10" />
+      <br />
+      <!-- Seleccionar catecoria -->
+      <label for="trivia_category">Seleccionar Categoría: </label>
+      <select name="trivia_category" id="trivia_category">
+        <option value="any">Cualquier Categoría</option>
+      </select>
+      <br />
+
+      <!-- Seleccionar dificultad -->
+      <label for="trivia_difficulty">Seleccionar Dificultad: </label>
+      <select id="trivia_difficulty">
+        <option value="any">Cualquier Dificultad</option>
+        <option value="easy">Fácil</option>
+        <option value="medium">Media</option>
+        <option value="hard">Difícil</option>
+      </select>
+      <br />
+
+      <!-- Seleccionar tipo -->
+      <label for="trivia_type">Tipo de Pregunta: </label>
+      <select id="trivia_type">
+        <option value="any">Cualquier Tipo</option>
+        <option value="multiple">Multiple Opción</option>
+        <option value="boolean">Verdadero / Falso</option>
+      </select>
+      <br />
+      <br />
+
+      <button type="submit">Generate API URL</button>
+    </form>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
