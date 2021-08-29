@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
     <title>Trivia API</title>
   </head>
   <body>
@@ -41,8 +42,20 @@
       <br />
       <br />
 
-      <button type="submit">Generate API URL</button>
+      <button type="submit">Comenzar</button>
     </form>
+
+    <!-- preguntas container -->
+    <div class="content" id="questionsContent">
+      <p id="questionName"></p>
+      <div class="question-items">
+        <button id="btn1" type="button">Ans 1</button>
+        <button id="btn2" type="button">Ans 2</button>
+        <button id="btn3" type="button">Ans 3</button>
+        <button id="btn4" type="button">Ans 4</button>
+      </div>
+    </div>
+
 
     <script src="script.js"></script>
   </body>

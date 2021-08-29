@@ -1,0 +1,9 @@
+body {
+}
+
+
+.content {
+    background: red;
+    display: none;flex-direction: column;
+
+}
