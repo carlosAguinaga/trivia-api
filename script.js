@@ -1,5 +1,4 @@
 // selectores
-// const selectCategory = document.getElementById("trivia_category");
 const form = document.getElementById("form");
 const trivia_amount = document.getElementById("trivia_amount");
 const trivia_category = document.getElementById("trivia_category");
@@ -12,6 +11,10 @@ const btn2 = document.getElementById("2");
 const btn3 = document.getElementById("3");
 const btn4 = document.getElementById("4");
 const btn_confirm = document.getElementById("btn-confirm");
+
+const result_content = document.getElementById("result_content");
+const result_text = document.getElementById("result-text");
+const btn_reboot = document.getElementById("btn-reboot");
 
 // generales
 let iterator = {};
@@ -59,6 +62,9 @@ const initQuestion = () => {
   if (item.done) {
     // finalizar trivia
     console.log("finalizo la trivia");
+    questionsContent.style.display = "none";
+    result_content.style.display = "block";
+    result_text.textContent = `Has respondido ${triviaState.correctAnswers} de ${triviaState.totalQuestions} preguntas`;
     return null;
   }
 
@@ -70,9 +76,11 @@ const initQuestion = () => {
     btn2.innerText = "False";
     btn3.style.display = "none";
     btn4.style.display = "none";
+
   } else {
     btn3.style.display = "inline";
     btn4.style.display = "inline";
+
     let iCount = 0;
     const num = randomNumTop(4);
     const nodeList = document.getElementById("question_items").children;
@@ -95,6 +103,35 @@ const cleanOptionSelected = () => {
 };
 
 // listeners
+btn1.addEventListener("click", () => {
+  btn_confirm.classList.add("btnConfirmOn");
+  cleanOptionSelected();
+  btn1.classList.add("btn-active");
+  currentOption = btn1.textContent;
+});
+
+btn2.addEventListener("click", () => {
+  btn_confirm.classList.add("btnConfirmOn");
+  cleanOptionSelected();
+  btn2.classList.add("btn-active");
+  currentOption = btn2.textContent;
+});
+
+btn3.addEventListener("click", () => {
+  btn_confirm.classList.add("btnConfirmOn");
+  cleanOptionSelected();
+  btn3.classList.add("btn-active");
+  currentOption = btn3.textContent;
+});
+
+btn4.addEventListener("click", () => {
+  btn_confirm.classList.add("btnConfirmOn");
+  cleanOptionSelected();
+  btn4.classList.add("btn-active");
+  currentOption = btn4.textContent;
+});
+
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -104,35 +141,17 @@ form.addEventListener("submit", (e) => {
   if (trivia_difficulty.value !== "any")
     params.difficulty = trivia_difficulty.value;
   if (trivia_type.value !== "any") params.type = trivia_type.value;
-
+  form.reset();
   startGame(params);
 });
 
-btn1.addEventListener("click", () => {
-  cleanOptionSelected();
-  btn1.classList.add("btn-active");
-  currentOption = btn1.textContent;
-});
-
-btn2.addEventListener("click", () => {
-  cleanOptionSelected();
-  btn2.classList.add("btn-active");
-  currentOption = btn2.textContent;
-});
-
-btn3.addEventListener("click", () => {
-  cleanOptionSelected();
-  btn3.classList.add("btn-active");
-  currentOption = btn3.textContent;
-});
-
-btn4.addEventListener("click", () => {
-  cleanOptionSelected();
-  btn4.classList.add("btn-active");
-  currentOption = btn4.textContent;
-});
-
 btn_confirm.addEventListener("click", () => {
+  // no hacer nada si no hay opción seleccionada
+  if (!btn_confirm.classList.contains("btnConfirmOn")) {
+    console.log("Por favor seleccione una opción");
+    return null;
+  }
+
   if (currentOption) {
     currentOption == currentQuestion.correct_answer
       ? triviaState.correctAnswers++
@@ -140,8 +159,19 @@ btn_confirm.addEventListener("click", () => {
   }
   currentOption = null;
   currentQuestion = null;
-  console.log(triviaState)
+  console.log(triviaState);
+
+  btn_confirm.classList.remove("btnConfirmOn");
   initQuestion();
+});
+
+btn_reboot.addEventListener("click", () => {
+  result_content.style.display = "none";
+  form.style.display = "block";
+  triviaState.totalQuestions = null;
+  triviaState.correctAnswers = 0;
+  currentQuestion = null;
+  currentOption = null;
 });
 
 getCategories();

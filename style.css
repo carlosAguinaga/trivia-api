@@ -1,3 +1,11 @@
+*,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 .content {
   background: red;
   display: none;
@@ -5,6 +13,22 @@
 }
 
 
+.btn-option {
+    border: 3px solid blue;
+    border-radius: 4px;
+    background-color: transparent;
+    padding: 10px;
+}
 .btn-active {
     background-color: blueviolet;
+}
+.btnConfirmOff {
+    background-color: brown;
+}
+.btnConfirmOn {
+    background-color: green;
+}
+
+.result_content {
+    display: none;
 }
