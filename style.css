@@ -1,9 +1,10 @@
-body {
+.content {
+  background: red;
+  display: none;
+  flex-direction: column;
 }
 
 
-.content {
-    background: red;
-    display: none;flex-direction: column;
-
+.btn-active {
+    background-color: blueviolet;
 }
