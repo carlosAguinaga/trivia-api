@@ -6,8 +6,8 @@ html {
 }
 
 
-.content {
-  background: aqua;
+.content-question {
+  background: rgb(195, 246, 246);
   display: none;
   flex-direction: column;
 }
@@ -20,22 +20,38 @@ html {
     padding: 10px;
 }
 .btn-active {
-    background-color: blueviolet;
+    background-color: #0d6efd;
+    color: white;
 }
 .btnConfirmOff {
     background-color: lightgray;
+    font-weight: bold;
+    font-size: 25px;
+    color: gray;
 }
+.btnConfirmOff:hover {
+    color: gray;
+}
+
 .btnConfirmOn {
-    background-color: green;
+    background-color: #42b522;
+    color: #318519;
+}
+.btnConfirmOn:hover {
+    color: #215313;
 }
 
 .response-question {
-    border: 3px solid blue;
-    margin: 15px;
+    margin: 15px 0;
     padding: 10px;
     display: none;
 }
-
+.number-question{
+    color:#0d6efd;
+}
+.text-result{
+    font-weight: bold;
+}
 .result_content {
     display: none;
 }

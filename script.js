@@ -6,6 +6,7 @@ const trivia_difficulty = document.getElementById("trivia_difficulty");
 const trivia_type = document.getElementById("trivia_type");
 const questionsContent = document.getElementById("questionsContent");
 
+
 const btn1 = document.getElementById("1");
 const btn2 = document.getElementById("2");
 const btn3 = document.getElementById("3");
@@ -16,7 +17,7 @@ const btn_confirm = document.getElementById("btn-confirm");
 const resSec = document.getElementById("response-question");
 const textRes = document.getElementById("text-response-response");
 
-
+//final trivia
 const result_content = document.getElementById("result_content");
 const result_text = document.getElementById("result-text");
 const btn_reboot = document.getElementById("btn-reboot");
@@ -26,6 +27,7 @@ let iterator = {};
 const triviaState = {
   totalQuestions: null,
   correctAnswers: 0,
+  CurrentQ: 1
 };
 
 let currentQuestion = null;
@@ -74,10 +76,13 @@ const initQuestion = () => {
     return null;
   }
 
+  
   currentQuestion = item.value;
-  document.getElementById("questionName").innerText = currentQuestion.question;
+  document.getElementById("questionName").innerText = atob(currentQuestion.question);
+  document.getElementById("number-question").innerText = `Pregunta: ${triviaState.CurrentQ}`;
+
   cleanOptionSelected();
-  if (currentQuestion.type === "boolean") {
+  if (atob(currentQuestion.type) === "boolean") {
     btn1.innerText = "True";
     btn2.innerText = "False";
     btn3.style.display = "none";
@@ -92,9 +97,9 @@ const initQuestion = () => {
     const btnList = [...nodeList];
     btnList.forEach((el) => {
       if (el.id == num) {
-        el.innerText = currentQuestion.correct_answer;
+        el.innerText = atob(currentQuestion.correct_answer);
       } else {
-        el.innerText = currentQuestion.incorrect_answers[iCount++];
+        el.innerText = atob(currentQuestion.incorrect_answers[iCount++]);
       }
     });
   }
@@ -149,6 +154,7 @@ form.addEventListener("submit", (e) => {
   if (trivia_difficulty.value !== "any")
     params.difficulty = trivia_difficulty.value;
   if (trivia_type.value !== "any") params.type = trivia_type.value;
+  params.encode = 'base64';
   form.reset();
   startGame(params);
 });
@@ -163,17 +169,18 @@ btn_confirm.addEventListener("click", () => {
 
   } else {
 
-    
     if (btnSubmit) {
-      const resultToF = currentQuestion.currentOption == currentQuestion.correct_answer;
+      const resultToF = currentQuestion.currentOption == atob(currentQuestion.correct_answer);
       resultToF ? triviaState.correctAnswers++ : null;
       resSec.style.display = 'block';
-      resultToF ? resSec.style.background = 'green' : resSec.style.background = 'red'
-      resultToF ? textRes.textContent = 'Felicitaciones acertaste' : textRes.textContent = 'respuesta equivocada'
+      resultToF ? resSec.style.background = '#53db8a' : resSec.style.background = '#e04c4f'
+      resultToF ? resSec.style.color = '#286341' : resSec.style.color = '#87292a'
+      resultToF ? textRes.textContent = 'Felicitaciones acertaste' : textRes.textContent = 'Respuesta incorrecta';
       btn_confirm.textContent = "Continuar"
       btnSubmit = false;
     } else {
       currentQuestion = null;
+      triviaState.CurrentQ++;
       resSec.style.display = 'none';
       btn_confirm.textContent = "Comprobar"
       btn_confirm.classList.remove("btnConfirmOn");
@@ -189,6 +196,7 @@ btn_reboot.addEventListener("click", () => {
   form.style.display = "block";
   triviaState.totalQuestions = null;
   triviaState.correctAnswers = 0;
+  triviaState.CurrentQ = 1;
   currentQuestion = null;
 });
 
